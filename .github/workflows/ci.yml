@@ -1,0 +1,22 @@
+name: CI
+on:
+  push:
+  pull_request:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Compile all Python files
+        run: python3 -m compileall -q .
+      - name: Train the model
+        run: python3 ml/train.py
+      - name: Run unit and integration tests
+        run: python3 -m unittest discover -s tests -v
+      - name: Run ML eval
+        run: python3 ml/evaluate.py
+      - name: Run RAG eval
+        run: python3 evals/rag-eval.py
