@@ -1,0 +1,42 @@
+services:
+  prediction:
+    build:
+      context: .
+      dockerfile: services/prediction-service/Dockerfile
+    ports:
+      - "8002:8002"
+    healthcheck:
+      test: ["CMD", "python3", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8002/health')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+  answer:
+    build:
+      context: .
+      dockerfile: services/answer-service/Dockerfile
+    ports:
+      - "8003:8003"
+    healthcheck:
+      test: ["CMD", "python3", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8003/health')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+  intake:
+    build:
+      context: .
+      dockerfile: services/intake-service/Dockerfile
+    ports:
+      - "8001:8001"
+    environment:
+      PREDICT_URL: http://prediction:8002/predict
+      ANSWER_URL: http://answer:8003/answer
+    depends_on:
+      prediction:
+        condition: service_healthy
+      answer:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python3", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8001/health')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
