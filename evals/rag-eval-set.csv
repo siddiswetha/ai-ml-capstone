@@ -1,0 +1,13 @@
+id,text,expected_source
+R01,I was charged twice for my headphones this month,billing-charge.md
+R02,My card was charged the wrong amount for my coffee maker,billing-charge.md
+R03,I cannot log in to my account and my password reset link is not working,access-login.md
+R04,I am locked out of my account after five wrong password tries,access-login.md
+R05,My backpack has not arrived yet and the tracking has not moved in days,delivery-late.md
+R06,The package says delivered but I never received my desk lamp,delivery-late.md
+R07,My blender arrived broken and does not turn on at all,defect-damaged.md
+R08,The keyboard I received is cracked and faulty,defect-damaged.md
+R09,I would like a refund for my water bottle because I returned it,refund-return.md
+R10,How do I get a refund for the faulty headphones I returned last week,refund-return.md
+R11,Please change the email address on my account for my order,account-update.md
+R12,What is the capital of France?,NONE
